@@ -1,0 +1,143 @@
+.chat{
+  opacity: 1;
+  display: flex;
+  flex-direction: column;
+  flex: 0.65;
+}
+
+.chat-header{
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid lightgray;
+}
+.chat-headerInfo{
+  flex: 1;
+  padding-left: 20px;
+}
+.chat-headerInfo > h3{
+  margin: 0;
+  margin-bottom: 3px;
+  font-weight: 500;
+}
+.chat-headerInfo > p{
+  margin: 0;
+  color: gray;
+}
+
+.chat-headerRight{
+  display: flex;
+  justify-content: space-between;
+  min-width: 100px;
+}
+
+.chat-body{
+  flex: 1;
+  background-image: url('../../Assets/background.png');
+  background-color: #e5ded8;
+  background-repeat: repeat;
+  background-size: 100%;
+  overflow-y: scroll;
+  padding: 30px;
+  scrollbar-width: none; 
+  overflow-anchor: none;
+}
+
+.chat-message{
+  margin: 0;
+  position: relative;
+  font-size: 16px;
+  padding: 10px;
+  width: fit-content;
+  background-color: white;
+  border-radius: 10px;
+  margin-top: 30px;
+}
+
+.short{
+  margin-top: 10px;
+}
+
+.chat-time{
+  margin-left: 10px;
+  font-size: xx-small;
+}
+.chat-name{
+  position: absolute;
+  top: -20px;
+  font-weight: 800;
+  font-size: small;
+}
+
+.sent{
+  margin-top: 10px;
+  margin-left: auto;
+  background-color: #6fff00;
+}
+
+.chat-footer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  border-top: 1px solid lightgray;
+}
+
+.chat-footer > form{  
+  flex: 1;
+  display: flex;
+  width: 100%;
+}
+
+.chat-footer > form > input{
+  flex: 1;
+  border-radius: 30px;
+  width: 98%;
+  border: none;
+  outline-width: 0;
+}
+.chat-footer > form > button{
+  display: none;
+}
+
+.chat-footer > .MuiSvgIcon-root{
+  padding: 10px;
+  color: gray;
+}
+
+#anchor {
+  overflow-anchor: auto;
+  height: 1px;
+}
+
+.chat.noRoom {
+  opacity: 0;
+}
+
+.menu-items {
+  margin: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: #cccdc7;
+  border-radius: 4px;
+}
+.menu-items > ul {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+  height: fit-content;
+  width: fit-content;
+}
+.menu-items > ul > li {
+  padding: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #3f3f3f;
+}
+
+.menu-items li:hover {
+  background-color: #ebece3;
+  border-radius: 3px;
+}

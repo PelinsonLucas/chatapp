@@ -1,0 +1,40 @@
+.chatApp{
+  display: grid;
+  position: fixed;
+  background-color: #c1c3b3;
+  background-position: center;
+  background-size: cover;
+  place-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.chatApp-container {  
+  z-index: -2;
+  margin-top: -2%;
+  display: flex;
+  background-color: #dfe0d6;
+  height: 85svh;
+  width: 90svw;
+  box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
+  min-width: 800px;
+  min-height: 600px;
+}
+
+.empty-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0.65;
+  margin-top: -10vh;
+}
+
+.empty-screen > h1 {
+  display: flex;
+  top: 10vh;
+  font-size: 2rem;
+  font-weight: 600;
+  color: gray;
+  min-height: max-content;
+  min-width: max-content;
+}

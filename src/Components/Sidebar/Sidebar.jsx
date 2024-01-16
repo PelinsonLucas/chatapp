@@ -12,6 +12,7 @@ const Sidebar = ({messages, setSelectedRoom, rooms, currentUsername, setSelected
   var [image, setImage] = useState("");
 
   useEffect(() => {
+
     axios.get(`/user/getimage/${currentUsername}`)
     .then((response) => {
       setImage(JSON.parse(response.data.image));
@@ -20,7 +21,19 @@ const Sidebar = ({messages, setSelectedRoom, rooms, currentUsername, setSelected
       setImage("");
       return;
     });
+
   }, [currentUsername]);
+
+  useEffect(() => {
+    var chats = document.querySelectorAll(".sidebarChat"); 
+    var chatsArray = Array.from(chats); 
+    let sorted = chatsArray.sort((a, b) => {
+      var aId = new Date(a.getAttribute('id'));
+      var bId = new Date(b.getAttribute('id'));
+      return (aId > bId) ? -1 : (aId < bId) ? 1 : 0;
+    }); 
+    sorted.forEach(e => document.querySelector(".sidebar-chats").appendChild(e)); 
+  });
 
   const changeProfilePicture = (event) => {
     const file = event.target.files[0];
@@ -31,7 +44,8 @@ const Sidebar = ({messages, setSelectedRoom, rooms, currentUsername, setSelected
       var baseURL = reader.result;
       axios.post("/user/setimage", {
         image: JSON.stringify(baseURL),
-      }).then(() => {
+      })
+      .then(() => {
         setImage(baseURL);
       })
       .catch(() => {

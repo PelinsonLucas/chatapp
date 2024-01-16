@@ -9,11 +9,16 @@ const Invite = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.post('/chats/join', {
-            id: roomID
-          })
-          .then(() => { navigate('/')})
-          .catch(err => console.log(err));
+      if (axios.getToken() === "" || axios.getToken() === null)
+        return navigate('/')
+      axios.post('/chats/join', {
+          id: roomID
+        })
+        .then(() => { navigate('/')})
+        .catch(err => {
+          navigate('/');
+          console.log(err);
+        });
           
     }, [roomID, navigate]);
 

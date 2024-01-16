@@ -7,6 +7,17 @@ const SidebarChat = ({room, setSelectedRoom, messages, highlight, currentUsernam
 
   const [image, setImage] = useState('');
 
+  const getId = () => {
+    if (messages === undefined || Array.isArray(messages) === false )
+      return "";
+      var message = messages.findLast((element) => element.chatid === room._id );
+    
+      if (message === undefined)
+        return "";
+
+      return message.timestamp;
+  };
+
   useEffect(() => {
     if (room.privateChat){
       let username = room.users.findLast(user => user !== currentUsername)
@@ -36,7 +47,7 @@ const SidebarChat = ({room, setSelectedRoom, messages, highlight, currentUsernam
     
     if (message === undefined)
       return "";
-
+    
     return ( message.username===currentUsername ? message.message : message.name + ": " + message.message)
   }
 
@@ -73,7 +84,7 @@ const SidebarChat = ({room, setSelectedRoom, messages, highlight, currentUsernam
   }
 
   return (
-    <div className='sidebarChat' onClick={selectRoom}>
+    <div className='sidebarChat' id={getId()} onClick={selectRoom}>
         <Avatar src={image}/>
         <div className='sidebarChat-info'>
             {highlightText()}

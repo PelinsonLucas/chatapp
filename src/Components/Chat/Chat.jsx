@@ -8,12 +8,16 @@ import EmojiPicker from 'emoji-picker-react';
 import { Dropdown, MenuButton, Menu, MenuItem } from '@mui/base';
 import Axios from '../Axios';
 
-const Chat = ({messages, selectedRoom, currentUsername, rooms, currentName}) => {
+const Chat = ({messages, setmessages, selectedRoom, currentUsername, rooms, currentName}) => {
 
   const [showEmojis, setShowEmojis] = useState(false);
   const [input, setInput] =  useState('');
   const [image, setImage] = useState('');
   const [privateChat, setPrivateChat] = useState(false);
+
+  useEffect(() => { 
+    document.getElementById("anchor").scrollIntoView({ behavior: "smooth" });
+  },[selectedRoom]);
 
   useEffect(() => {
     var room = rooms.find(room => room._id === selectedRoom)
@@ -43,14 +47,13 @@ const Chat = ({messages, selectedRoom, currentUsername, rooms, currentName}) => 
       return;
     }
       
-
     setImage(JSON.parse(room.image));
   }, [rooms, selectedRoom, currentUsername]);
   
   var lastMessage = "";
 
   const copyLink = () => {
-    navigator.clipboard.writeText(`${window.location.origin.toString()}/#/join/${rooms.find(room => room._id === selectedRoom)._id}`);
+    navigator.clipboard.writeText(`${window.location.origin}${process.env.PUBLIC_URL}/#/join/${rooms.find(room => room._id === selectedRoom)._id}`);
   }
 
   const getRoomName = () => { 
@@ -110,6 +113,9 @@ const Chat = ({messages, selectedRoom, currentUsername, rooms, currentName}) => 
       timestamp: new Date().toUTCString(),
       username: currentUsername,
       chatid: selectedRoom
+    })
+    .then((response) => {
+      setmessages([...messages, response.data]);
     }).catch(err => console.log(err));
 
     setInput("");

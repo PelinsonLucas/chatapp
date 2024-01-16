@@ -33,7 +33,7 @@ const ChatApp = () => {
                 <h1> Select a chat to start messaging </h1>
               </div> 
             : selectedSubscreen === 1 ? 
-              <Chat messages={messages} selectedRoom={selectedRoom} currentUsername={currentUsername} 
+              <Chat messages={messages} setmessages={setmessages} selectedRoom={selectedRoom} currentUsername={currentUsername} 
                   rooms={rooms} currentName={currentName}/>
             : <ChatOptions selectedSubscreen={selectedSubscreen} setSelectedSubscreen={setSelectedSubscreen}
               currentUsername={currentUsername}/>
@@ -93,6 +93,8 @@ const ChatApp = () => {
       if (data.users.includes(currentUsername)) {
         axios.get('/messages/get/'+ data.messageid)
         .then( (message) => {
+          if (messages.includes(message.data) || message.data.username === currentUsername) 
+            return;
           setmessages([...messages, message.data]);
         })
         .catch( (err) => {
@@ -102,8 +104,8 @@ const ChatApp = () => {
     });
 
     return () => {
-      channel.unsubscribe();
       channel.unbind_all();
+      channel.unsubscribe();
     }
   },[messages]);
 

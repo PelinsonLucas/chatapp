@@ -71,6 +71,8 @@
     background-color: rgba(44, 134, 40, 0.53);
     background-blend-mode: multiply;
     background-size: cover;
+    min-width: 1000px;
+    min-height: 600px;
 }
 
 .green-background.login {
@@ -93,6 +95,13 @@
     color: white;
     text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     top: 5%;
+    text-wrap: nowrap;
+}
+
+@media screen and (max-width: 1200px) {
+    .welcome-text{
+        font-size: 2rem;
+    }
 }
 
 .demo-warning {

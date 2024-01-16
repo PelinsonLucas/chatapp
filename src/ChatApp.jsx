@@ -1,4 +1,4 @@
-import React,  { useEffect, useState } from 'react';
+import React,  { useCallback, useEffect, useState } from 'react';
 import Sidebar from './Components/Sidebar/Sidebar.jsx';
 import "./ChatApp.css";
 import Chat from './Components/Chat/Chat.jsx';
@@ -18,6 +18,13 @@ const ChatApp = () => {
   var [loggedIn, setLoggedIn] = useState(false);
   var [selectedRoom, setSelectedRoom] = useState("0");
   var [selectedSubscreen, setSelectedSubscreen] = useState(0);
+
+  const asyncUpdate = useCallback((message) => {
+    setTimeout(() => {
+      setmessages((msg) => [...msg, message]);
+    }, 500);
+    console.log(messages);
+  }, [messages]);
 
   const selectScreen = () => {
 
@@ -95,7 +102,7 @@ const ChatApp = () => {
         .then( (message) => {
           if (messages.includes(message.data) || message.data.username === currentUsername) 
             return;
-          setmessages([...messages, message.data]);
+          asyncUpdate(message.data)
         })
         .catch( (err) => {
           console.log(err);
@@ -107,7 +114,7 @@ const ChatApp = () => {
       channel.unbind_all();
       channel.unsubscribe();
     }
-  },[messages]);
+  },[messages, asyncUpdate]);
 
   return (
     <div className='chatApp'>

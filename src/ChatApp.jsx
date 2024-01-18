@@ -43,7 +43,7 @@ const ChatApp = () => {
               <Chat messages={messages} setmessages={setmessages} selectedRoom={selectedRoom} currentUsername={currentUsername} 
                   rooms={rooms} currentName={currentName}/>
             : <ChatOptions selectedSubscreen={selectedSubscreen} setSelectedSubscreen={setSelectedSubscreen}
-              currentUsername={currentUsername}/>
+              currentUsername={currentUsername} rooms={rooms} setRooms={setRooms}/>
           }  
         </div>
         )
@@ -96,13 +96,26 @@ const ChatApp = () => {
     });
     const channel = pusher.subscribe('messages');
     channel.bind('inserted', (data) => { 
-      
       if (data.users.includes(currentUsername)) {
         axios.get('/messages/get/'+ data.messageid)
         .then( (message) => {
           if (messages.includes(message.data) || message.data.username === currentUsername) 
             return;
-          asyncUpdate(message.data)
+
+          if(rooms.filter(room => room._id === message.data.chatid).length > 0)
+          {
+            asyncUpdate(message.data)
+          }
+          else{
+            axios.get('/chats/get/'+ message.data.chatid)
+            .then( (response) => {
+              setRooms([...rooms, response.data]);
+              asyncUpdate(message.data)
+            })
+            .catch( (err) => {
+              console.log(err);
+            });
+          }
         })
         .catch( (err) => {
           console.log(err);
@@ -114,7 +127,7 @@ const ChatApp = () => {
       channel.unbind_all();
       channel.unsubscribe();
     }
-  },[messages, asyncUpdate]);
+  },[messages, asyncUpdate, rooms]);
 
   return (
     <div className='chatApp'>

@@ -4,7 +4,7 @@ import './ChatOptions.css';
 import axios from '../Axios.js';
 import avatar from '../../Assets/profile.png';
 
-const ChatOptions = ({selectedSubscreen, setSelectedSubscreen, currentUsername}) => {
+const ChatOptions = ({selectedSubscreen, setSelectedSubscreen, currentUsername, rooms, setRooms}) => {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [picture, setPicture] = useState(avatar);
@@ -24,9 +24,10 @@ const ChatOptions = ({selectedSubscreen, setSelectedSubscreen, currentUsername})
       users: [currentUsername],
     }).then((response) => {
       setSelectedSubscreen(0);
-      navigate('/');
       setName("");
       setPicture("");
+      setRooms([...rooms, response.data]);
+      navigate('/');
     })
     .catch(err => console.log(err))
   };
@@ -43,8 +44,9 @@ const ChatOptions = ({selectedSubscreen, setSelectedSubscreen, currentUsername})
       users: [currentUsername, username],
     }).then((response) => {
       setSelectedSubscreen(0);
-      navigate('/');
+      setRooms([...rooms, response.data]);
       setUsername("");
+      navigate('/');
     })
     .catch(err => console.log(err))
     

@@ -4,7 +4,7 @@ This is a Whatsapp clone, built with react.js.
 
 ## Github Pages
 
-This project is available on github pages at [https://pelinsonlucas.github.io/WeatherApp/](https://pelinsonlucas.github.io/chatapp/#/)
+This project is available on github pages at [https://pelinsonlucas.github.io/chatapp/](https://pelinsonlucas.github.io/chatapp/#/)
 
 ## Available Scripts
 
